@@ -1,0 +1,44 @@
+GET /api/users - получение списка пользователей
+
+Запрос:-
+Ответ: {
+     "users":[
+     {
+     "id":32,
+     "name":"Yury Kulakov"
+     },
+     {
+     "id":566,
+     "name":"Henry Osborn"
+     }
+     ]
+
+}
+GET /api/messages - получение списка сообщений
+
+Запрос:-
+Ответ: {
+"messages":[
+{
+"name":"Henry Osborn",
+"text":"Hello World",
+"time": 20:32 05.04.2022
+}
+{
+"name":"Howard Lawcraft",
+"text":"How are you?",
+"time": 04:12 18.09.2022
+}
+]
+}
+POST /api/messages - отправка сообщения
+
+Запрос:-text
+{"user":"Henry Osborn",
+ "message":"Hi!"
+}
+Ответ:{"result":true}
+POST /api/users - создание пользователя
+
+Запрос:-name - имя пользователя
+Ответ:{"result":true}
