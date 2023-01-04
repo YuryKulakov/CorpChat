@@ -3,6 +3,7 @@ package main.controllers;
 import main.model.User;
 import main.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,11 @@ import java.util.HashMap;
 public class ChatController {
     @Autowired
     UserRepository userRepository;
+
+    @GetMapping("/")
+    public String index(Model model){
+        return "static/index.html";
+    }
 
     @GetMapping(path = "/api/auth")
     public HashMap<String, Boolean> auth() {
