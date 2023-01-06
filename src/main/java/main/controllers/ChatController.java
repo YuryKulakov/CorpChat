@@ -18,11 +18,6 @@ public class ChatController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/")
-    public String index(Model model){
-        return "static/index.html";
-    }
-
     @GetMapping(path = "/api/auth")
     public HashMap<String, Boolean> auth() {
         HashMap<String, Boolean> response = new HashMap<>();
