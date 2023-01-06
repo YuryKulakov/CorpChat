@@ -1,17 +1,22 @@
 package main.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.mysql.cj.protocol.ColumnDefinition;
+
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class Message {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Integer id;
     private Date time;
+    @Column(columnDefinition = "TEXT")
     private String message;
     private Integer userId;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     public Integer getId() {
         return id;
@@ -43,5 +48,13 @@ public class Message {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
