@@ -7,6 +7,7 @@ import main.repositories.UserRepository;
 import main.response.AddMessageResponse;
 import main.response.AuthResponse;
 import main.response.MessageResponse;
+import main.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,7 +57,7 @@ public class ChatController {
     }
 
     @GetMapping(path = "/api/messages")
-    public List<MessageResponse> getMessages(){
+    public HashMap<String,List> getMessages(){
         ArrayList <MessageResponse> messageList = new ArrayList<>();
         Iterable <Message> messages = messageRepository.findAll();
         for(Message message: messages){
@@ -66,7 +67,25 @@ public class ChatController {
             messageItem.setTime(formatter.format(message.getTime()));
             messageList.add(messageItem);
         }
-        return messageList;
+        HashMap<String,List> response = new HashMap<>();
+        response.put("messages",messageList);
+        return response;
+    }
+
+    @GetMapping(path = "/api/users")
+    public HashMap<String,List> getUsers(){
+        ArrayList <UserResponse> usersList = new ArrayList<>();
+        Iterable <User> users = userRepository.findAll();
+        for(User user: users){
+            UserResponse userItem = new UserResponse();
+
+            userItem.setName(user.getName());
+            userItem.setRegTime(formatter.format(user.getRegTime()));
+            userItem.setSessionId(getSessionId());
+        }
+        HashMap<String,List> response = new HashMap<>();
+        response.put("users",usersList);
+        return response;
     }
 
     private String getSessionId() {
