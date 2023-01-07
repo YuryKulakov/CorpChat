@@ -4,6 +4,7 @@ import main.model.Message;
 import main.model.User;
 import main.repositories.MessageRepository;
 import main.repositories.UserRepository;
+import main.response.AuthResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,11 +23,14 @@ public class ChatController {
     private MessageRepository messageRepository;
 
     @GetMapping(path = "/api/auth")
-    public HashMap<String, Boolean> auth() {
-        HashMap<String, Boolean> response = new HashMap<>();
+    public AuthResponse auth() {
+        AuthResponse response = new AuthResponse();
         String getSessionId = getSessionId();
         User user = userRepository.getBySessionId(getSessionId);
-        response.put("result", user != null);
+        response.setResult(user != null);
+        if(user!=null){
+            response.setName(user.getName());
+        }
         return response;
     }
 
