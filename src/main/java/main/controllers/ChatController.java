@@ -73,19 +73,16 @@ public class ChatController {
     }
 
     @GetMapping(path = "/api/users")
-    public HashMap<String,List> getUsers(){
+    public List<UserResponse> getUsers(){
         ArrayList <UserResponse> usersList = new ArrayList<>();
         Iterable <User> users = userRepository.findAll();
         for(User user: users){
             UserResponse userItem = new UserResponse();
 
             userItem.setName(user.getName());
-            userItem.setRegTime(formatter.format(user.getRegTime()));
-            userItem.setSessionId(getSessionId());
+            usersList.add(userItem);
         }
-        HashMap<String,List> response = new HashMap<>();
-        response.put("users",usersList);
-        return response;
+        return usersList;
     }
 
     private String getSessionId() {
