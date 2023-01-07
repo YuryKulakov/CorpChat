@@ -1,7 +1,5 @@
 package main.model;
 
-import com.mysql.cj.protocol.ColumnDefinition;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,7 +11,7 @@ public class Message {
     private Date time;
     @Column(columnDefinition = "TEXT")
     private String message;
-    private Integer userId;
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -40,14 +38,6 @@ public class Message {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public User getUser() {
